@@ -1,10 +1,10 @@
 export default [
     {
         name: "App One Inc",
-        url: "",
+        url: "http://localhost:3010",
     },
     {
         name: "App Two Inc",
-        url: "",
+        url: "http://localhost:3020",
     }
 ];

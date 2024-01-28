@@ -10,7 +10,8 @@ export class AppsService {
 
     constructor() {
         this.cache[config.app_name] = config.auth.public_key;
-        _.mapValues(config.apps, 'name');
+        console.log({ apps: config.apps });
+        this.apps = _.mapKeys(config.apps, 'name');
     }
 
     async get_public_key(name: string) {
@@ -18,11 +19,17 @@ export class AppsService {
         return crypto.createPublicKey(pubkey);
     }
 
-    async get_app_public_key(name: string) {
-        const url = `${this.apps[name].url}${config.endpoints.pubkey}`;
-        const key = await fetch(url);
+    async my_public_key() {
+        return config.auth.public_key;
+    }
 
-        this.apps[name] = key;
+    async get_app_public_key(name: string) {
+        console.log('this.apps', this.apps);
+        const url = `${this.apps[name].url}${config.endpoints.pubkey}`;
+        const key = await fetch(url)
+            .then(response => response.text());
+
+        this.cache[name] = key;
 
         console.log('get_app_public_key', { key });
         return key;

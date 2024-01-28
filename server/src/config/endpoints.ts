@@ -1,3 +1,3 @@
 export default {
-    pubkey: '/pubkey'
+    pubkey: '/auth/pubkey'
 }

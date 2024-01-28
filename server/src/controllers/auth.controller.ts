@@ -1,6 +1,5 @@
 
 import { Body, Controller, Post, HttpCode, HttpStatus, Get } from '@nestjs/common';
-import config from 'src/config';
 import { AllowUnauthorizedRequest } from 'src/guards/allow_unauthorized';
 import { AppsService } from 'src/services/apps.service';
 import { AuthService } from 'src/services/auth.service';
@@ -21,8 +20,9 @@ export class AuthController {
     }
 
     @AllowUnauthorizedRequest()
-    @Get(config.endpoints.pubkey)
+    @Get('pubkey')
     pubkey() {
-        return this.appsService.get_public_key(config.app_name);
+        console.log('get pubkey');
+        return this.appsService.my_public_key();
     }
 }
